@@ -1,4 +1,4 @@
-# Legal Document Q&A — Private RAG Demo by ContextLayer
+# Legal Document Q&A — Private RAG Demo by Quincy Jones
 
 Ask questions against a set of legal documents and get accurate, cited answers — entirely on your own infrastructure.
 
@@ -7,7 +7,7 @@ Ask questions against a set of legal documents and get accurate, cited answers �
 ## One-command setup
 
 ```bash
-git clone https://github.com/yourusername/legal-rag-demo
+git clone https://github.com/qgjones9/legal-rag-demo.git
 cd legal-rag-demo
 docker-compose up
 # Open http://localhost:8501
@@ -52,7 +52,7 @@ docker-compose up
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/legal-rag-demo
+git clone https://github.com/qgjones9/legal-rag-demo.git
 cd legal-rag-demo
 
 # Start the stack (first run pulls ~5GB of model weights)
@@ -71,6 +71,34 @@ docker-compose down
 ```
 
 Data persists in Docker volumes (`ollama_data`, `qdrant_data`) between restarts.
+
+## Environment variables
+
+This project works out of the box with Docker Compose and does **not** require an `.env` file for the default setup.
+
+For local/non-Docker runs (or custom networking), the app reads these environment variables:
+
+| Variable | Required | Default | Purpose |
+|---|---|---|---|
+| `QDRANT_HOST` | Optional | `qdrant` | Hostname for the Qdrant service |
+| `OLLAMA_HOST` | Optional | `ollama` | Hostname for the Ollama service |
+
+If you run the app directly on your machine (instead of in Docker), create a `.env` file in the project root:
+
+```bash
+QDRANT_HOST=localhost
+OLLAMA_HOST=localhost
+```
+
+Compose already sets these values for the `app` container:
+
+```yaml
+environment:
+  - QDRANT_HOST=qdrant
+  - OLLAMA_HOST=ollama
+```
+
+No API keys are required. All models and retrieval run locally.
 
 ## Adding your own documents
 
@@ -94,4 +122,4 @@ This system runs entirely locally. No document content, queries, or answers are 
 
 ---
 
-Built by [ContextLayer](https://contextlayer.io) — private AI infrastructure for professional services firms.
+Built by [Quincy Jones](https://github.com/qgjones9).
